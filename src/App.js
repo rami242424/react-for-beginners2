@@ -1,69 +1,45 @@
-// cleanup function : component가 destroy될 떄 뭔가 할 수 있도록 해주는 것 => "return () => console.log("destroyed :(");"
+import { useState } from "react";
+import Button from './Button';
 
-import { useEffect, useState } from "react";
+function App(){
+  const [toDo, setToDo] = useState("");
+  const [toDos, setToDos] = useState([]); 
+  const onChange = (event) => setToDo(event.target.value);
+  // console.log(toDo);
+  const onSubmit = (event) => {
+    event.preventDefault();
+    // console.log(toDo);
+    if(toDo === ""){
+      return; // toDo === ""이 true라면, onSubmit 함수를 작동하지 않도록 한다(return한다.)
+    }
 
-////방법 1 return 추가해주기(기본형_잘쓰이는 방법)////
-// function Hello(){
-//   useEffect(() => {
-//     console.log("Created :)");
-//     return () => console.log("Destroyed :(");
-//   }, []);
-//   return <h1>Hello</h1>;
-// }
-
-////방법 2 cleanup 함수로 만들어주기////
-// function Hello(){
-//   function destrFn(){
-//     console.log("Destroyed :(");
-//   }
-
-//   function creatFn(){
-//     console.log("Created :)");
-//     return destrFn;
-//   }
-  
-//   useEffect(creatFn, []);
-//   return <h1>Hello</h1>;
-// }
-
-function Hello(){
-    // function destrFn(){
-    //   console.log("Destroyed :(");
-    // }
-  
-    // function creatFn(){
-    //   console.log("Created :)");
-    //   return destrFn;
-    // }
+    //방법1
+    setToDos(currentArray => [toDo, ...currentArray]
+    );
     
-    //방법1 (주로 쓰이는 방법)
-    useEffect(() => {
-      console.log("Hi :)");
-      return () => console.log("bye :(");
-    }, []);
-    return <h1>Hello</h1>;
-
-
     //방법2
-  //   useEffect(function(){
-  //     console.log("Hi :)");
-  //     return function(){
-  //       console.log("bye :(");
-  //     }
-  //   }, []);
-  //   return <h1>Hello</h1>;
-  // }
-}
-// --------------------------------------- //
+    // setToDos(function(currentArray){
+      //   return
+      // });
+      
+      setToDo(""); // input이 submit되고 나서 input칸 비워주기
+      // 자스에서처럼 toDo = "" 이런식으로 state를 직접 수정하지 않는다.(절대)
+      console.log(toDos);
+  };
+  // console.log(toDos);
 
-function App() {
-  const [showing, setShowing] = useState(false);
-  // setShowing을 통해 이전 value를 받아온 다음에, 그 value의 반댓값을 return 
-  const onClick = () => setShowing(prev => !prev);
   return (
     <div>
-      {showing ? <Hello /> : null }
-      <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
+      <h1>My To Dos ({toDos.length})</h1>
+      <form onSubmit={onSubmit}>
+        <input 
+          onChange={onChange} 
+          value={toDo} 
+          type="text" 
+          placeholder="Write your to do.."
+          />
+        <button>Add To Do</button>
+      </form>
     </div>
   );
 }
