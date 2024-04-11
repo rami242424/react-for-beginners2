@@ -1,4 +1,4 @@
-// useEffect(우리가 딱 한번만 실행하고 싶은 코드,니콜설명예정코드);
+// useEffect(우리가 딱 한번만 실행하고 싶은 코드, react.js가 지켜보아야하는 것들_그리고 그것들이 변화할 때, react.js가 코드를 실행시킨다.);
 // 이렇게 두개의 아규먼트로 되어있다.
 
 import { useEffect, useState } from "react";
