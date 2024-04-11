@@ -1,0 +1,10 @@
+/* 기존버전
+button {
+    color : white;
+    background-color: tomato;
+} */
+
+.btn {
+    color : white;
+    background-color: tomato;
+}
