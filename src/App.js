@@ -40,6 +40,19 @@ function App(){
           />
         <button>Add To Do</button>
       </form>
+      <hr/>
+      {/* 작동은 되나, console에 key를 입력해야된다는 에러가 뜬다. 
+      <ul>
+        {toDos.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul> */}
+      <ul>
+        {toDos.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
+
     </div>
   );
 }
